@@ -35,6 +35,6 @@ public class RegistrationController {
 
         registrationService.register(userDto);
 
-        return "registration-successful";
+        return "registration-successfully";
     }
 }
