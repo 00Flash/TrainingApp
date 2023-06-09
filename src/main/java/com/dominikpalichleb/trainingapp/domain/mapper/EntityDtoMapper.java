@@ -12,10 +12,7 @@ public class EntityDtoMapper {
     public DietDto toDietDto(Diet diet) {
         return DietDto.builder()
                 .id(diet.getId())
-                .kcal(diet.getKcal())
-                .fat(diet.getFat())
-                .proteins(diet.getProteins())
-                .carbon(diet.getCarbon())
+                .userId(diet.getUserId())
                 .dishes(diet.getDishes())
                 .date(diet.getDate())
                 .build();
@@ -24,10 +21,7 @@ public class EntityDtoMapper {
     public Diet toDiet(DietDto dietDto) {
         return Diet.builder()
                 .id(dietDto.getId())
-                .kcal(dietDto.getKcal())
-                .fat(dietDto.getFat())
-                .proteins(dietDto.getProteins())
-                .carbon(dietDto.getCarbon())
+                .userId(dietDto.getUserId())
                 .dishes(dietDto.getDishes())
                 .date(dietDto.getDate())
                 .build();
