@@ -14,4 +14,6 @@ public class DishDto {
     private String fat;
     private String protein;
     private String carbon;
+
+    private String name;
 }

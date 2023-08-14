@@ -5,4 +5,5 @@ public class Dish {
     private String fat;
     private String protein;
     private String carbon;
+    private String name;
 }
