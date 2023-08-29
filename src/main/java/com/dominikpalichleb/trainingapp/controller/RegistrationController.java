@@ -21,7 +21,12 @@ public class RegistrationController {
     @GetMapping
     public String showSignUpForm(Model model) {
         model.addAttribute("user", new UserDto());
-        return "registration";
+        return "register";
+    }
+
+    @GetMapping("/success")
+    public String showSuccessPage(){
+        return "registration-successfully";
     }
 
     @PostMapping
@@ -30,11 +35,11 @@ public class RegistrationController {
             Errors errors) {
 
         if (errors.hasErrors()) {
-            return "registration";
+            return "register";
         }
 
         registrationService.register(userDto);
 
-        return "registration-successfully";
+        return "register-successfully";
     }
 }

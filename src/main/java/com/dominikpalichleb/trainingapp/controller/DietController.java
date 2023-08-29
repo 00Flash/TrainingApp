@@ -3,7 +3,6 @@ package com.dominikpalichleb.trainingapp.controller;
 import com.dominikpalichleb.trainingapp.domain.dto.DietDto;
 import com.dominikpalichleb.trainingapp.domain.dto.DishDto;
 import com.dominikpalichleb.trainingapp.domain.model.Diet;
-import com.dominikpalichleb.trainingapp.domain.model.Dish;
 import com.dominikpalichleb.trainingapp.domain.model.User;
 import com.dominikpalichleb.trainingapp.repository.DietRepository;
 import com.dominikpalichleb.trainingapp.service.DietService;

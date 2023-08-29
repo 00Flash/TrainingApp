@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 @Document
+@Builder
 @Data
 public class Diet {
     @Id
