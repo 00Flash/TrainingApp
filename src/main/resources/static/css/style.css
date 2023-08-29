@@ -1,0 +1,359 @@
+footer {
+    background-color: #3DE023;
+    text-align: center;
+    height: 30px;
+    margin-top: 20px;
+    bottom: 0;
+    position: fixed;
+    left: calc(50% - 600px);
+    right: calc(50% - 600px);
+    clear: both;
+}
+body {
+    background: #544C50;
+}
+a:link {
+    text-decoration: none;
+    color: black;
+}
+a:visited {
+    text-decoration: none;
+    color: black;
+}
+#logo {
+    height: 70px;
+    width: 1200px;
+    margin-left:auto;
+    margin-right:auto;
+}
+#app-name {
+    color: white;
+    float: left;
+    font-family: 'Cabin Sketch';
+    font-size: 48px;
+    background-color: #3DE023;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    width:60%;
+}
+.logo-icons {
+    float: left;
+    font-size: 48px;
+    background-color: #3DE023;
+    padding-bottom: 1px;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    width:20%;
+}
+#mid-page {
+    clear: both;
+}
+h4 {
+    margin-top: auto;
+    padding: 5px;
+    margin-bottom: auto;
+}
+.nav-button {
+    width: 500px;
+}
+nav {
+    margin-bottom: 20px;
+}
+#form {
+    background-color: #EBEBE2;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    padding: 10px;
+    border-radius: 10px;
+}
+#container {
+    width: 880px;
+    height: 300px;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.home-button {
+    background-color: #EBEBE2;
+    height: 300px;
+    width: 400px;
+    margin: 20px;
+    float: left;
+    text-align: center;
+    font-size: 48px;
+    border-radius: 10px;
+    line-height: 300px;
+}
+.home-button:hover {
+    cursor: pointer;
+}
+h2 {
+    text-align: center;
+}
+h3 {
+    text-align: center;
+}
+.form-button {
+    width: 200px;
+    padding: 4px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+.plus {
+    text-align: center;
+    width: 300px;
+    height: 70px;
+    background-color: #EBEBE2;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 70px;
+    font-size: 36px;
+    font-weight: bold;
+    border-radius: 10px;
+    float: left;
+}
+.plus:hover {
+    cursor: pointer;
+    background-color: #C9C9C9;
+}
+#communicate {
+    text-align: center;
+    width: 500px;
+    height: 80px;
+    background-color: #EBEBE2;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 80px;
+    font-size: 48px;
+    font-weight: bold;
+    border-radius: 10px;
+}
+#communicate:hover {
+    cursor: pointer;
+    background-color: #C9C9C9;
+}
+.diet-day {
+    width: 600px;
+    background-color: #EBEBE2;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 4px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+.diet-number {
+    width: 146px;
+    text-align: center;
+    float: left;
+    border: 2px;
+    border-color: black;
+    border-style: double;
+    border-radius: 3px;
+}
+#date {
+    font-size: 32px;
+     text-align: center;
+}
+.dish {
+    clear: both;
+    font-size: 24px;
+    padding: 5px;
+}
+.dish-info{
+    text-align: center;
+    width: 40%;
+    float: left;
+}
+#diet-bar {
+    clear: both;
+    width: 600px;
+    height: 30px;
+    margin-top: 40px;
+}
+.dish-button {
+    font-size: 14px;
+    float: left;
+    text-align: center;
+    width: 50%;
+}
+.dish-remove {
+    width: 15%;
+    float: left;
+    text-align: right;
+}
+
+.popup .overlay {
+    position:fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.7);
+    z-index: 1;
+    display: none;
+}
+.popup .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: #fff;
+    width: 850px;
+    height: 550px;
+    z-index: 2;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.popup .close-btn {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 30px;
+    height: 30px;
+    background: #222;
+    color: #fff;
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.popup.active .overlay {
+    display: block;
+}
+.popup.active .content {
+    transition: all 300ms ease-in-out;
+    transform: translate(-50%, -50%) scale(1);
+}
+.popup #dish-results {
+    height: 320px;
+    margin-top: 30px;
+    width: 450px;
+    overflow: scroll;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+
+}
+.dish-numbers-in-search {
+    text-align: center;
+    float: left;
+    width: 23%;
+    font-size: 12px;
+}
+.add-dish-bar {
+    margin-top: 10px;
+}
+#training-sessions {
+    width: 600px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    clear: both;
+    margin-top: 50px;
+}
+.one-training-session {
+    background-color: #EBEBE2;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.exercise-info {
+    float: left;
+    width: 25%;
+}
+#exercise-edit-btn {
+    border: groove;
+    width: 80px;
+    clear: both;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+.exercise {
+    height: 18px;
+    width: 600px;
+}
+.exercise-edit-input {
+    width: 70%;
+}
+.training-menu {
+    text-align: center;
+    margin-bottom: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 70px;
+    width: 650px;
+}
+#custom-dish {
+    width: 300px;
+    height: 450px;
+    float: left;
+    margin: 5px;
+}
+#searching-dish {
+    float: left;
+    margin: 5px;
+}
+.custom-dish-number {
+    margin: 10px;
+}
+.exercise-in-search {
+    text-align: center;
+    font-size: 24px;
+    margin-top: 10px;
+}
+#exercise-results {
+    height: 320px;
+    margin-top: 30px;
+    width: 450px;
+    overflow: scroll;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+.one-exercise {
+    width: 800px;
+    height: 50px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #EBEBE2;
+    border-radius: 10px;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+.exercise-content {
+    float: left;
+    width: 20%;
+    line-height: 50px;
+}
+.exercise-log {
+    text-align: center;
+    font-size: 24px;
+    margin-top: 10px;
+    width: 450px;
+
+}
+.log-number {
+    width: 33%;
+    float: left;
+    margin-bottom: 10px;
+}
+.new-exercise-field {
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.field {
+    width: 200px;
+    font-size: 18px;
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" href="css/fontello.css" type="text/css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Cabin+Sketch&display=swap" rel="stylesheet">
+        <title>Exercise form</title>
+    </head>
+    <body>
+        <div id="logo">
+            <div class="logo-icons">
+                <span>
+                    <i class="demo-icon icon-tennis"></i>
+                    <i class="demo-icon icon-swimming"></i>
+                </span>
+            </div>
+            <span id="app-name">Welcome to your TrainingApp</span>
+            <div class="logo-icons">
+                <span>
+                    <i class="demo-icon icon-skiing"></i>
+                    <i class="demo-icon icon-soccer"></i>
+                </span>
+            </div>
+        </div>
+        <div style="width: 600px; text-align: center; margin-left: auto; margin-right: auto;">
+            <form>
+                <h2>Exercise name</h2>
+                <div class="new-exercise-field"><input type="text" placeholder="Name"></div>
+                <h3>Numbers you made in your last training</h3>
+                <div class="new-exercise-field"><input name="reps" class="field" type="number" min="0" placeholder="Number of reps/distance/time"></div>
+                <div class="new-exercise-field">
+                    <select class="field" name="units1">
+                        <option value="reps">Reps</option>
+                        <option value="m">Meters</option>
+                        <option value="km">Kilometers</option>
+                        <option value="s">Seconds</option>
+                        <option value="min">Minutes</option>
+                        <option value="hr">Hours</option>
+                    </select>
+                </div>
+                <div class="new-exercise-field"><input class="field" name="weight" type="number" min="0" placeholder="weight/pace"></div>
+                <div class="new-exercise-field">
+                    <select class="field" name="units2">
+                        <option value="kg">Kilograms</option>
+                        <option value="km/h">Kilometers per hour</option>
+                        <option value="km">Kilometers</option>
+                        <option value="s">Seconds</option>
+                        <option value="min">Minutes</option>
+                        <option value="hr">Hours</option>
+                    </select>
+                </div>
+                <div class="new-exercise-field">
+
+
+                </div>
+            </form>
+            <a href="exercises.html"><button>Add exercise</button></a>
+        </div>
+        <footer><h4>Made by Dominik Palichleb 2023</h4></footer>
+    </body>
+</html>

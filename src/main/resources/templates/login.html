@@ -1,63 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link th:href="@{/css/main.css}" type="text/css" rel="stylesheet">
-</head>
-<body>
-<div class="main-container">
-
-    <div class="greeting">
-        <i>Welcome to Trainer App!</i>
-    </div>
-
-    <div class="user-form-container">
-
-        <div class="form-item">
-            <div class="form-header">
-                Log in to start training!
+    <head>
+        <meta charset="UTF-8">
+        <link th:href="@{/css/style.css}" type="text/css" rel="stylesheet">
+        <link rel="stylesheet" href="css/fontello.css" type="text/css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Cabin+Sketch&display=swap" rel="stylesheet">
+        <title>Login</title>
+    </head>
+    <body>
+        <div id="logo">
+            <div class="logo-icons">
+                <span>
+                    <i class="demo-icon icon-tennis"></i>
+                    <i class="demo-icon icon-swimming"></i>
+                </span>
+            </div>
+            <span id="app-name">Welcome to your TrainingApp</span>
+            <div class="logo-icons">
+                <span>
+                    <i class="demo-icon icon-skiing"></i>
+                    <i class="demo-icon icon-soccer"></i>
+                </span>
             </div>
         </div>
+        <div id="mid-page">
+            <div id="form">
+                <div th:if="${param.error}" class="form-item">
+                    <div style="color: red; font-size: 14px;">
+                        Invalid username or password
+                    </div>
+                </div>
 
-        <div th:if="${param.error}" class="form-item">
-            <div style="color: red; font-size: 14px;">
-                Invalid username or password
+                <div th:if="${param.logout}" class="form-item">
+                    <div style="color: green">
+                        You have been logged out
+                    </div>
+                </div>
+                <h2>Login</h2>
+                <form action="#" th:action="@{/login}" method="POST">
+                    <div class="form-button"><input type="text" id="username" name="username" placeholder="username"></div>
+                    <div class="form-button"><input type="password" id="password" name="password" placeholder="password"></div>
+                    <div class="form-button"><button type="submit">Log in</button></div>
+                    <h3>Don't have account yet?</h3>
+                    <div class="form-button"><a th:href="@{/sign-up}"><input type="button" value="Register"></a></div>
+                </form>
             </div>
         </div>
-
-        <div th:if="${param.logout}" class="form-item">
-            <div style="color: green">
-                You have been logged out
-            </div>
-        </div>
-
-        <form action="#" th:action="@{/login}" method="POST">
-            <div class="form-item">
-                <input type="text" id="username" name="username" placeholder="Username">
-            </div>
-
-            <div class="form-item">
-                <input type="password" id="password" name="password" placeholder="Password">
-            </div>
-
-            <div class="form-item">
-                <button type="submit" class="button-submit">Log in</button>
-            </div>
-        </form>
-
-        <div class="form-item">
-            <div id="account-question">
-                Don't have account yet?
-            </div>
-
-            <a th:href="@{/sign-up}">
-                <button type="button"
-                        id="redirect-sign-up">Sign Up</button>
-            </a>
-        </div>
-
-    </div>
-</div>
-</body>
+        <footer><h4>Made by Dominik Palichleb 2023</h4></footer>
+    </body>
 </html>
