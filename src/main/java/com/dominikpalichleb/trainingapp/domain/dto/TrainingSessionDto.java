@@ -14,4 +14,5 @@ import java.util.List;
 @AllArgsConstructor
 public class TrainingSessionDto {
     private List<Excercise> excercises;
+    private String name;
 }

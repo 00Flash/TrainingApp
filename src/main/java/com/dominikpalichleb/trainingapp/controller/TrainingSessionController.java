@@ -30,13 +30,13 @@ public class TrainingSessionController {
         User loggedUser = userContextService.getLoggedUser();
         List<TrainingSessionDto> trainingSessionList = trainingSessionService.getTrainingSessionsByUser(loggedUser);
         model.addAttribute("trainingSessionList", trainingSessionList);
-        return "";
+        return "training-sessions";
     }
 
     @GetMapping("/session")
     public String showOneTrainingSession(Model model){
 
-        return "";
+        return "training-session-edit";
     }
 
     @GetMapping("/excercises")
@@ -44,7 +44,7 @@ public class TrainingSessionController {
         User loggedUser = userContextService.getLoggedUser();
         List<ExcerciseDto> excerciseList = trainingSessionService.getExcercisesByUser(loggedUser);
         model.addAttribute("exercisesList", excerciseList);
-        return "";
+        return "exercises";
     }
 
    /* @PostMapping
@@ -75,16 +75,17 @@ public class TrainingSessionController {
     }
 
     @PostMapping
-    public String processTrainingSessionForm(@ModelAttribute TrainingSessionDto trainingSessionDto){
+    public String processTrainingSessionForm(){
+        TrainingSessionDto trainingSessionDto = new TrainingSessionDto();
         User loggedUser = userContextService.getLoggedUser();
         trainingSessionService.addTrainingSession(trainingSessionDto, loggedUser);
-        return "";
+        return "redirect:/training";
     }
 
-   /* @PostMapping
+    @PostMapping("/excercise/form")
     public String processExerciseForm(@ModelAttribute ExcerciseDto excerciseDto){
         User loggedUser = userContextService.getLoggedUser();
         trainingSessionService.addExcercise(excerciseDto, loggedUser);
-        return "";
-    }*/
+        return "exercises";
+    }
 }

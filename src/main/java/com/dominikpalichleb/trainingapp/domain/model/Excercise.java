@@ -9,12 +9,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Builder
 @Document
 public class Excercise {
-    @Id
-    private Long id;
     private User user;
     private String name;
     private String unit;
     private int reps;
     private int value;
+    private String unit2;
 
 }

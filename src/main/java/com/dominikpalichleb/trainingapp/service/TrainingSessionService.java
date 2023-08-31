@@ -14,6 +14,7 @@ import com.dominikpalichleb.trainingapp.repository.TrainingSessionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +38,15 @@ public class TrainingSessionService {
 
     public void addTrainingSession(TrainingSessionDto trainingSessionDto, User user){
         TrainingSession trainingSession = mapper.toTrainingSession(trainingSessionDto, user);
+        trainingSession.setName("Training day");
+        ExcerciseDto excerciseDto = new ExcerciseDto();
+        excerciseDto.setName("first exercise");
+        excerciseDto.setReps(0);
+        excerciseDto.setUnit("kg");
+        excerciseDto.setValue(0);
+        List<Excercise> list = new ArrayList<>();
+        list.add(mapper.toExcercise(excerciseDto, user));
+        trainingSession.setExcercises(list);
         trainingSessionRepository.save(trainingSession);
     }
 
@@ -52,7 +62,7 @@ public class TrainingSessionService {
 
     public List<TrainingSessionDto> getTrainingSessionsByUser(User user){
         Optional<TrainingSession> optionalList = trainingSessionRepository.findAllByUser(user);
-        List<TrainingSessionDto> finalList = null;
+        List<TrainingSessionDto> finalList = new ArrayList<>();
         List<TrainingSession> trainingSessionsList = optionalList.stream().toList();
         for(int i=0; i<trainingSessionsList.size(); i++){
             finalList.add(mapper.toTrainingSessionDto(trainingSessionsList.get(i)));

@@ -36,6 +36,7 @@ public class EntityDtoMapper {
                 .reps(excercise.getReps())
                 .unit(excercise.getUnit())
                 .value(excercise.getValue())
+                .unit2(excercise.getUnit2())
                 .build();
     }
 
@@ -43,6 +44,7 @@ public class EntityDtoMapper {
         return Excercise.builder()
                 .user(user)
                 .unit(excerciseDto.getUnit())
+                .unit2(excerciseDto.getUnit2())
                 .value(excerciseDto.getValue())
                 .name(excerciseDto.getName())
                 .reps(excerciseDto.getReps())
@@ -67,12 +69,14 @@ public class EntityDtoMapper {
     public TrainingSessionDto toTrainingSessionDto(TrainingSession trainingSession){
         return TrainingSessionDto.builder()
                 .excercises(trainingSession.getExcercises())
+                .name(trainingSession.getName())
                 .build();
     }
 
     public TrainingSession toTrainingSession(TrainingSessionDto trainingSessionDto, User user){
         return TrainingSession.builder()
                 .excercises(trainingSessionDto.getExcercises())
+                .name(trainingSessionDto.getName())
                 .user(user)
                 .build();
     }

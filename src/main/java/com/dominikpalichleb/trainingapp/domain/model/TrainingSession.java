@@ -1,5 +1,7 @@
 package com.dominikpalichleb.trainingapp.domain.model;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Builder;
 import lombok.Data;
@@ -11,8 +13,7 @@ import java.util.List;
 @Builder
 @Document
 public class TrainingSession {
-    @Id
-    private Long id;
     private User user;
+    private String name;
     private List<Excercise> excercises;
 }
