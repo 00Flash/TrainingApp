@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExcerciseDto {
+public class ExerciseDto {
     private String name;
     private String unit;
     private int reps;

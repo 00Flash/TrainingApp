@@ -11,10 +11,7 @@ import java.util.List;
 @Builder
 @Data
 public class Diet {
-    @Id
-    private Long id;
     private User user;
-    private Long userId;
     private List<Dish> dishes;
     private Date date;
 

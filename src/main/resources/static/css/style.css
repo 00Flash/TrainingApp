@@ -268,7 +268,7 @@ h3 {
     float: left;
     width: 25%;
 }
-#exercise-edit-btn {
+.exercise-edit-btn {
     border: groove;
     width: 80px;
     clear: both;

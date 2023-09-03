@@ -1,6 +1,7 @@
 package com.dominikpalichleb.trainingapp.domain.dto;
 
 import com.dominikpalichleb.trainingapp.domain.model.Dish;
+import com.dominikpalichleb.trainingapp.domain.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,8 +15,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DietDto {
-    private Long id;
-    private Long userId;
     private List<Dish> dishes;
     private Date date;
 }

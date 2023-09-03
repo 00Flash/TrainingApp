@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/style.css}" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="css/fontello.css" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin+Sketch&display=swap" rel="stylesheet">
+    <title>Login</title>
+</head>
+<body>
+<div id="logo">
+    <div class="logo-icons">
+                <span>
+                    <i class="demo-icon icon-tennis"></i>
+                    <i class="demo-icon icon-swimming"></i>
+                </span>
+    </div>
+    <span id="app-name">Welcome to your TrainingApp</span>
+    <div class="logo-icons">
+                <span>
+                    <i class="demo-icon icon-skiing"></i>
+                    <i class="demo-icon icon-soccer"></i>
+                </span>
+    </div>
+</div>
+<h2>Account created succesfully</h2>
+<a th:href="@{/login}"><div id="communicate">Back to login</div></a>
+<footer><h4>Made by Dominik Palichleb 2023</h4></footer>
+</body>
+</html>

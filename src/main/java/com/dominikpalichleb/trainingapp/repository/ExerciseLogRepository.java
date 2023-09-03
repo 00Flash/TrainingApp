@@ -6,6 +6,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;
 
-public interface ExcerciseLogRepository extends MongoRepository<ExerciseLog, String> {
+public interface ExerciseLogRepository extends MongoRepository<ExerciseLog, String> {
     Optional<ExerciseLog> findAllByUser(User user);
 }

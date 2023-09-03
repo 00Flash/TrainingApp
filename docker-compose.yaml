@@ -20,6 +20,16 @@ services:
       - ME_CONFIG_MONGODB_ADMINUSERNAME=rootuser
       - ME_CONFIG_MONGODB_ADMINPASSWORD=rootpass
       - ME_CONFIG_MONGODB_SERVER=mongodb
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: TrainingApp
+      MYSQL_USER: TrainingAppUser
+      MYSQL_PASSWORD: user
+    ports:
+      - 3306:3306
 volumes:
   data: {}
 

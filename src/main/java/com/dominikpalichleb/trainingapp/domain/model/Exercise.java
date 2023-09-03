@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @Builder
 @Document
-public class Excercise {
+public class Exercise {
     private User user;
     private String name;
     private String unit;

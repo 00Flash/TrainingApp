@@ -1,6 +1,6 @@
 package com.dominikpalichleb.trainingapp.domain.dto;
 
-import com.dominikpalichleb.trainingapp.domain.model.Excercise;
+import com.dominikpalichleb.trainingapp.domain.model.Exercise;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExcerciseLogDto {
-    private Excercise excercise;
+public class ExerciseLogDto {
+    private Exercise exercise;
     private LocalDateTime date;
 }

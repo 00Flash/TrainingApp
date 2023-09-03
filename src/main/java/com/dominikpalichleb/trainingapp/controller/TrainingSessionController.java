@@ -1,19 +1,16 @@
 package com.dominikpalichleb.trainingapp.controller;
 
-import com.dominikpalichleb.trainingapp.domain.dto.ExcerciseDto;
-import com.dominikpalichleb.trainingapp.domain.dto.ExcerciseLogDto;
+import com.dominikpalichleb.trainingapp.domain.dto.ExerciseDto;
 import com.dominikpalichleb.trainingapp.domain.dto.TrainingSessionDto;
 import com.dominikpalichleb.trainingapp.domain.mapper.EntityDtoMapper;
+import com.dominikpalichleb.trainingapp.domain.model.TrainingSessionsHelper;
 import com.dominikpalichleb.trainingapp.domain.model.User;
 import com.dominikpalichleb.trainingapp.service.TrainingSessionService;
 import com.dominikpalichleb.trainingapp.service.UserContextService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,28 +30,43 @@ public class TrainingSessionController {
         return "training-sessions";
     }
 
-    @GetMapping("/session")
-    public String showOneTrainingSession(Model model){
-
+    @GetMapping("/session/{name}")
+    public String showOneTrainingSession(@PathVariable String name, Model model){
+        User loggedUser = userContextService.getLoggedUser();
+        List<ExerciseDto> exerciseDtoList = trainingSessionService.getExcercisesByUser(loggedUser);
+        TrainingSessionDto trainingSessionDto = trainingSessionService.getTrainingSessionByName(loggedUser, name);
+        TrainingSessionsHelper helper = new TrainingSessionsHelper(trainingSessionDto, new String());
+        model.addAttribute("allExercises", exerciseDtoList);
+        model.addAttribute("trainingSession", helper);
         return "training-session-edit";
     }
 
-    @GetMapping("/excercises")
-    public String showAllExcercises(Model model){
+    @GetMapping("/exercises")
+    public String showAllExercises(Model model){
         User loggedUser = userContextService.getLoggedUser();
-        List<ExcerciseDto> excerciseList = trainingSessionService.getExcercisesByUser(loggedUser);
+        List<ExerciseDto> excerciseList = trainingSessionService.getExcercisesByUser(loggedUser);
         model.addAttribute("exercisesList", excerciseList);
         return "exercises";
     }
 
    /* @PostMapping
-    public String showExcerciseLogs(@ModelAttribute ExcerciseDto excerciseDto, Model model){ //TODO tesotwanie, alternatywna wersja: @ModelAttribute("exercise") @Valid ExcerciseDto excerciseDto,
+    public String showExcerciseLogs(@ModelAttribute ExerciseDto excerciseDto, Model model){ //TODO tesotwanie, alternatywna wersja: @ModelAttribute("exercise") @Valid ExerciseDto excerciseDto,
         User loggedUser = userContextService.getLoggedUser();
-        List<ExcerciseLogDto> excerciseLogList = trainingSessionService.getExcerciseLogsByUserAndExcercise(loggedUser, mapper.toExcercise(excerciseDto, loggedUser));
-        model.addAttribute("excercise", excerciseDto);
+        List<ExerciseLogDto> excerciseLogList = trainingSessionService.getExcerciseLogsByUserAndExcercise(loggedUser, mapper.toExcercise(excerciseDto, loggedUser));
+        model.addAttribute("exercise", excerciseDto);
         model.addAttribute("exerciseLogList", excerciseLogList);
         return "";
     }*/
+
+    @PostMapping("/session/{name}/add-exercise")
+    public String addExerciseToTrainingSession(@ModelAttribute ExerciseDto exerciseDto, @PathVariable String name){
+        User loggedUser = userContextService.getLoggedUser();
+        TrainingSessionDto trainingSessionDto = trainingSessionService.getTrainingSessionByName(loggedUser, name);
+        exerciseDto = trainingSessionService.getExercise(exerciseDto.getName(), loggedUser);
+        trainingSessionDto.getExercises().add(mapper.toExcercise(exerciseDto, loggedUser));
+        trainingSessionService.updateTrainingSession(trainingSessionDto, loggedUser);
+        return "redirect:/training";
+    }
 
     @GetMapping("/session/form")
     public String showTrainingSessionForm(Model model){
@@ -65,13 +77,13 @@ public class TrainingSessionController {
         return "";
     }
 
-    @GetMapping("/excercise/form")
-    public String showExcerciseForm(Model model){
-        ExcerciseDto excercise = new ExcerciseDto();
+    @GetMapping("/exercise/form")
+    public String showExerciseForm(Model model){
+        ExerciseDto excercise = new ExerciseDto();
         User loggedUser = userContextService.getLoggedUser();
         model.addAttribute("exercise", excercise);
         model.addAttribute("loggedUser", loggedUser);
-        return "";
+        return "exercise-form";
     }
 
     @PostMapping
@@ -82,10 +94,18 @@ public class TrainingSessionController {
         return "redirect:/training";
     }
 
-    @PostMapping("/excercise/form")
-    public String processExerciseForm(@ModelAttribute ExcerciseDto excerciseDto){
+    @PostMapping("/save-changes")
+    public String saveChangesInTrainingSession(@ModelAttribute TrainingSessionsHelper trainingSessionsHelper){
+        System.out.println("new name: " + trainingSessionsHelper.getNewName());
+        System.out.println("reps: " + trainingSessionsHelper.getTrainingSessionDto().getExercises().get(0).getReps());
+        System.out.println("value: " + trainingSessionsHelper.getTrainingSessionDto().getExercises().get(0).getValue());
+        return "redirect:/training";
+    }
+
+    @PostMapping("/exercise/form")
+    public String processExerciseForm(@ModelAttribute ExerciseDto exerciseDto){
         User loggedUser = userContextService.getLoggedUser();
-        trainingSessionService.addExcercise(excerciseDto, loggedUser);
-        return "exercises";
+        trainingSessionService.addExercise(exerciseDto, loggedUser);
+        return "redirect:/training/exercises";
     }
 }

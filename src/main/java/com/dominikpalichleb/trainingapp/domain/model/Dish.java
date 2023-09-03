@@ -8,9 +8,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Builder
 @Document
 public class Dish {
-    private String kcal;
-    private String fat;
-    private String protein;
-    private String carbon;
+    private int kcal;
+    private int fat;
+    private int protein;
+    private int carbon;
     private String name;
+    private int amount;
 }

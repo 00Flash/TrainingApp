@@ -26,7 +26,7 @@ public class RegistrationController {
 
     @GetMapping("/success")
     public String showSuccessPage(){
-        return "registration-successfully";
+        return "success";
     }
 
     @PostMapping
@@ -40,6 +40,6 @@ public class RegistrationController {
 
         registrationService.register(userDto);
 
-        return "register-successfully";
+        return "success";
     }
 }

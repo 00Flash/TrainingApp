@@ -1,6 +1,6 @@
 package com.dominikpalichleb.trainingapp.domain.dto;
 
-import com.dominikpalichleb.trainingapp.domain.model.Excercise;
+import com.dominikpalichleb.trainingapp.domain.model.Exercise;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,6 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TrainingSessionDto {
-    private List<Excercise> excercises;
+    private List<Exercise> exercises;
     private String name;
 }

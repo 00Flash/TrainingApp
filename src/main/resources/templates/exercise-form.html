@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <link th:href="@{/css/style.css}" type="text/css" rel="stylesheet">
-        <link rel="stylesheet" href="css/fontello.css" type="text/css" />
+        <link rel="stylesheet" th:href="@{/css/fontello.css}" type="text/css" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Cabin+Sketch&display=swap" rel="stylesheet">
@@ -26,13 +26,13 @@
             </div>
         </div>
         <div style="width: 600px; text-align: center; margin-left: auto; margin-right: auto;">
-            <form>
-                <h2>Exercise name</h2>
-                <div class="new-exercise-field"><input type="text" placeholder="Name"></div>
-                <h3>Numbers you made in your last training</h3>
-                <div class="new-exercise-field"><input name="reps" class="field" type="number" min="0" placeholder="Number of reps/distance/time"></div>
+            <form th:action="@{/training/exercise/form}" th:object="${exercise}" method="post">
+                <h2 style="background-color: #EBEBE2">Exercise name</h2>
+                <div class="new-exercise-field"><input type="text" placeholder="Name" th:field="*{name}"></div>
+                <h3 style="background-color: #EBEBE2">Numbers you made in your last training</h3>
+                <div class="new-exercise-field"><input name="reps" class="field" type="number" min="0" placeholder="Number of reps/distance/time" th:field="*{reps}"></div>
                 <div class="new-exercise-field">
-                    <select class="field" name="units1">
+                    <select class="field" name="units1" th:field="*{unit}">
                         <option value="reps">Reps</option>
                         <option value="m">Meters</option>
                         <option value="km">Kilometers</option>
@@ -41,9 +41,9 @@
                         <option value="hr">Hours</option>
                     </select>
                 </div>
-                <div class="new-exercise-field"><input class="field" name="weight" type="number" min="0" placeholder="weight/pace"></div>
+                <div class="new-exercise-field"><input class="field" name="weight" type="number" min="0" placeholder="weight/pace" th:field="*{value}"></div>
                 <div class="new-exercise-field">
-                    <select class="field" name="units2">
+                    <select class="field" name="secondUnits" th:field="*{secondUnit}">
                         <option value="kg">Kilograms</option>
                         <option value="km/h">Kilometers per hour</option>
                         <option value="km">Kilometers</option>
@@ -53,11 +53,9 @@
                     </select>
                 </div>
                 <div class="new-exercise-field">
-
-
+                    <button type="submit">Add exercise</button>
                 </div>
             </form>
-            <a href="exercises.html"><button>Add exercise</button></a>
         </div>
         <footer><h4>Made by Dominik Palichleb 2023</h4></footer>
     </body>

@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <link th:href="@{/css/style.css}" type="text/css" rel="stylesheet">
-        <link rel="stylesheet" href="css/fontello.css" type="text/css" />
+        <link rel="stylesheet" th:href="@{/css/fontello.css}" type="text/css" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Cabin+Sketch&display=swap" rel="stylesheet">
@@ -30,39 +30,32 @@
         </div>
     </div>
 
-        <div id="logo">
-            <div class="logo-icons">
-                <span>
-                    <i class="demo-icon icon-tennis"></i>
-                    <i class="demo-icon icon-swimming"></i>
-                </span>
-            </div>
-            <span id="app-name">Welcome to your TrainingApp</span>
-            <div class="logo-icons">
+    <div id="logo">
+        <div class="logo-icons">
+                    <span>
+                        <i class="demo-icon icon-tennis"></i>
+                        <i class="demo-icon icon-swimming"></i>
+                    </span>
+        </div>
+        <span id="app-name">Welcome to your TrainingApp</span>
+        <div class="logo-icons">
                 <span>
                     <i class="demo-icon icon-skiing"></i>
                     <i class="demo-icon icon-soccer"></i>
                 </span>
-            </div>
         </div>
+    </div>
         <div class="training-menu">
-            <a href="exercise-form.html"><div class="plus" style="float: none;">New exercise</div></a>
+            <a th:href="@{/training/exercise/form}"><div class="plus" style="float: none;">New exercise</div></a>
         </div>
-        <div class="one-exercise">
-            <div class="exercise-content">Bench press</div>
-            <div class="exercise-content">last training:</div>
-            <div class="exercise-content">10 reps</div>
-            <div class="exercise-content">60 kg</div>
-            <div class="exercise-content"><button onclick="togglePopup()">See history</button></div>
-        </div>
-        <div class="one-exercise">
-            <div class="exercise-content">Squat</div>
-            <div class="exercise-content">last training:</div>
-            <div class="exercise-content">5 reps</div>
-            <div class="exercise-content">100 kg</div>
+        <div class="one-exercise" th:each="exercise: ${exercisesList}">
+            <div class="exercise-content" th:text="${exercise.getName()}">Bench press</div>
+            <div class="exercise-content" >last training:</div>
+            <div class="exercise-content"><span th:text="${exercise.getReps()}"></span> <span th:text="${exercise.getUnit()}"></span></div>
+            <div class="exercise-content"><span th:text="${exercise.getValue()}"></span> <span th:text="${exercise.getSecondUnit()}"></span></div>
             <div class="exercise-content"><button onclick="togglePopup()">See history</button></div>
         </div>
         <footer><h4>Made by Dominik Palichleb 2023</h4></footer>
-        <script src="script.js"></script>
+        <script th:src="@{/js/script.js}"></script>
     </body>
 </html>
