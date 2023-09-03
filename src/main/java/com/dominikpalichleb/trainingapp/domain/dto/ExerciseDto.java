@@ -14,5 +14,5 @@ public class ExcerciseDto {
     private String unit;
     private int reps;
     private int value;
-    private String unit2;
+    private String secondUnit;
 }
