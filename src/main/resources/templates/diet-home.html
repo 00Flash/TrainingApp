@@ -16,38 +16,25 @@
                 <div class="close-btn" onclick="togglePopup()">&times;</div>
                 <div id="searching-dish">
                     <h2>Search for dish</h2>
-                    <div id="search-bar"><input type="text" placeholder="dish name" id="seach-dish-name" th:name="seach-dish-name"><button id="search-dish-btn">Search</button></div>
-                    <div id="dish-results">
-                        <div class="dish-in-search">
-                            <h3 style="margin: 2px;">Bread</h3>
-                            <h6 style="font-size: 10px; margin: 2px;">in 100g</h6>
-                            <div class="dish-numbers-in-search"><span>Calories</span>300 kcal</div>
-                            <div class="dish-numbers-in-search"><span>Proteins</span>9 g</div>
-                            <div class="dish-numbers-in-search"><span>Carbs</span>13 g</div>
-                            <div class="dish-numbers-in-search"><span>Fats</span>20 g</div>
-                            <div class="dish-numbers-in-search" style="width: 8%;"><input type="radio" name="dish"></div>
+                    <div id="search-bar"><input type="text" placeholder="dish name" id="seach-dish-name"><button id="search-dish-btn">Search</button></div>
+                    <form th:action="@{/diet}" method="post">
+                        <div id="dish-results">
+
                         </div>
-                        <div class="dish-in-search">
-                            <h3 style="margin: 2px;">Oil</h3>
-                            <h6 style="font-size: 10px; margin: 2px;">in 100g</h6>
-                            <div class="dish-numbers-in-search"><span>Calories</span>300 kcal</div>
-                            <div class="dish-numbers-in-search"><span>Proteins</span>9 g</div>
-                            <div class="dish-numbers-in-search"><span>Carbs</span>13 g</div>
-                            <div class="dish-numbers-in-search"><span>Fats</span>20 g</div>
-                            <div class="dish-numbers-in-search" style="width: 8%;"><input type="radio" name="dish"></div>
-                        </div>
-                    </div>
-                    <div class="add-dish-bar"><input type="number" min="0" step="50" style="width: 50px;">g <button onclick="togglePopup()">Add dish</button></div>
+                        <div class="add-dish-bar"><input type="number" min="0" step="50" style="width: 50px;" th:name="seach-dish-amount">g <button onclick="togglePopup()" type="submit">Add dish</button></div>
+                    </form>
+
+
                 </div>
                 <div id="custom-dish">
                     <h2>Custom dish</h2>
-                    <form th:action="@{/diet/custom}" method="post">
-                        <div style="margin-top: 70px;"><input type="text" placeholder="Dish name" th:value="${dish.getName()}" id="dish-name" th:name="dish-name"></div>
-                        <div class="custom-dish-number"><label>Callories in 100g <input type="number" style="width: 30px;" th:value="${dish.getKcal()}" id="dish-kcal" th:name="kcal"></label></div>
-                        <div class="custom-dish-number"><label>Proteins in 100g <input type="number" style="width: 30px;"th:value="${dish.getProtein()}" id="dish-protein" th:name="protein"></label></div>
-                        <div class="custom-dish-number"><label>Carbs in 100g <input type="number" style="width: 30px;"th:value="${dish.getCarbon()}" id="dish-carbon" th:name="carbon"></label></div>
-                        <div class="custom-dish-number"><label>Fats in 100g <input type="number" style="width: 30px;"th:value="${dish.getFat()}" id="dish-fat" th:name="fat"></label></div>
-                        <div class="add-dish-bar" style="margin-top: 185px;"><input type="number" min="0" step="50" style="width: 50px;"th:value="${dish.getAmount()}" id="dish-amount" th:name="amount">g <button type="submit" onclick="togglePopup()">Add dish</button></div>
+                    <form th:action="@{/diet/custom}" method="post" th:object="${dish}">
+                        <div style="margin-top: 70px;"><input type="text" placeholder="Dish name" th:field="*{name}" id="dish-name" th:name="dish-name"></div>
+                        <div class="custom-dish-number"><label>Callories in 100g <input type="number" style="width: 30px;" th:field="*{kcal}" id="dish-kcal" th:name="kcal"></label></div>
+                        <div class="custom-dish-number"><label>Proteins in 100g <input type="number" style="width: 30px;" th:field="*{protein}" id="dish-protein" th:name="protein"></label></div>
+                        <div class="custom-dish-number"><label>Carbs in 100g <input type="number" style="width: 30px;" th:field="*{carbon}" id="dish-carbon" th:name="carbon"></label></div>
+                        <div class="custom-dish-number"><label>Fats in 100g <input type="number" style="width: 30px;" th:field="*{fat}" id="dish-fat" th:name="fat"></label></div>
+                        <div class="add-dish-bar" style="margin-top: 185px;"><input type="number" min="0" step="50" style="width: 50px;" th:field="*{amount}" id="dish-amount" th:name="amount">g <button type="submit" onclick="togglePopup()">Add dish</button></div>
                     </form>
                 </div>
 

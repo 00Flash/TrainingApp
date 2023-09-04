@@ -45,6 +45,12 @@ public class DietController {
         }
 
         DishDto dish = new DishDto();
+        dish.setName("");
+        dish.setAmount(0);
+        dish.setKcal(0);
+        dish.setCarbon(0);
+        dish.setProtein(0);
+        dish.setFat(0);
         Date date = new Date();
         Diet diet = dietService.getDietByDate(loggedUser, date);
         model.addAttribute("dish", dish);
@@ -54,15 +60,18 @@ public class DietController {
         return "diet-home";
     }
     @PostMapping
-    public String addDishToDietDay() {
-
-        return "diet-home";
+    public String addDishToDietDay(@RequestParam(value = "seach-dish-name") String name, @RequestParam(value = "seach-dish-amount") int amount) {
+        System.out.println("name " + name);
+        System.out.println("jestem tu");
+        System.out.println("amount " + amount);
+        System.out.println("gg");
+        return "redirect:/diet";
     }
 
     @PostMapping("/custom")
     public String addCustomDishToDietDay(@ModelAttribute DishDto dish) {
         dietService.addDish(dish);
-        return "diet-home";
+        return "redirect:/diet";
     }
     @GetMapping("/search-dish/{name}")
     public String searchDish(@PathVariable String name, Model model){

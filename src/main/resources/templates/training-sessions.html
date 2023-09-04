@@ -36,7 +36,17 @@
                     <div class="exercise-info" th:text="${exercise.getName()}"></div>
                     <div class="exercise-info"><span th:text="${exercise.getReps()}"></span> <span th:text="${exercise.getUnit()}"></span></div>
                     <div class="exercise-info"><span th:text="${exercise.getValue()}"></span> <span th:text="${exercise.getSecondUnit()}"></span></div>
-                    <div class="exercise-info"><button>Add to log</button></div>
+                    <div class="exercise-info">
+                        <form th:action="@{/training/add-log}" method="post" th:object="${toExerciseLog}">
+                            <input type="hidden" th:field="*{name}" th:value="${exercise.getName()}">
+                            <input type="hidden" th:field="*{unit}" th:value="${exercise.getUnit()}">
+                            <input type="hidden" th:field="*{secondUnit}" th:value="${exercise.getSecondUnit()}">
+                            <input type="hidden" th:field="*{value}" th:value="${exercise.getValue()}">
+                            <input type="hidden" th:field="*{reps}" th:value="${exercise.getReps()}">
+                            <button type="submit">Add to log</button>
+                        </form>
+
+                    </div>
                 </div>
                 <div style="width: 80px; margin-left: auto; margin-right: auto;">
                     <a th:href="@{/training/session/{name}(name = ${trainingSession.getName()})}"><div class="exercise-edit-btn">Edit</div></a>

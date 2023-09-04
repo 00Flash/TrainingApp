@@ -11,6 +11,8 @@ import java.util.List;
 @Builder
 @Document
 public class TrainingSession {
+    @Id
+    private String id;
     private User user;
     private String name;
     private List<Exercise> exercises;

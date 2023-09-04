@@ -1,6 +1,7 @@
 package com.dominikpalichleb.trainingapp.controller;
 
 import com.dominikpalichleb.trainingapp.domain.dto.ExerciseDto;
+import com.dominikpalichleb.trainingapp.domain.dto.ExerciseLogDto;
 import com.dominikpalichleb.trainingapp.domain.dto.TrainingSessionDto;
 import com.dominikpalichleb.trainingapp.domain.mapper.EntityDtoMapper;
 import com.dominikpalichleb.trainingapp.domain.model.TrainingSessionsHelper;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -26,6 +28,8 @@ public class TrainingSessionController {
     public String showAllTrainingSessions(Model model){
         User loggedUser = userContextService.getLoggedUser();
         List<TrainingSessionDto> trainingSessionList = trainingSessionService.getTrainingSessionsByUser(loggedUser);
+        ExerciseDto exerciseDto = new ExerciseDto();
+        model.addAttribute("toExerciseLog", exerciseDto);
         model.addAttribute("trainingSessionList", trainingSessionList);
         return "training-sessions";
     }
@@ -35,9 +39,10 @@ public class TrainingSessionController {
         User loggedUser = userContextService.getLoggedUser();
         List<ExerciseDto> exerciseDtoList = trainingSessionService.getExcercisesByUser(loggedUser);
         TrainingSessionDto trainingSessionDto = trainingSessionService.getTrainingSessionByName(loggedUser, name);
-        TrainingSessionsHelper helper = new TrainingSessionsHelper(trainingSessionDto, new String());
+        String oldName = trainingSessionDto.getName();
+        model.addAttribute("oldName", oldName);
         model.addAttribute("allExercises", exerciseDtoList);
-        model.addAttribute("trainingSession", helper);
+        model.addAttribute("trainingSessionDto", trainingSessionDto);
         return "training-session-edit";
     }
 
@@ -45,6 +50,8 @@ public class TrainingSessionController {
     public String showAllExercises(Model model){
         User loggedUser = userContextService.getLoggedUser();
         List<ExerciseDto> excerciseList = trainingSessionService.getExcercisesByUser(loggedUser);
+        List<ExerciseLogDto> exerciseLogList = trainingSessionService.getExcerciseLogsByUser(loggedUser);
+        model.addAttribute("exerciseLogList", exerciseLogList);
         model.addAttribute("exercisesList", excerciseList);
         return "exercises";
     }
@@ -95,10 +102,17 @@ public class TrainingSessionController {
     }
 
     @PostMapping("/save-changes")
-    public String saveChangesInTrainingSession(@ModelAttribute TrainingSessionsHelper trainingSessionsHelper){
-        System.out.println("new name: " + trainingSessionsHelper.getNewName());
-        System.out.println("reps: " + trainingSessionsHelper.getTrainingSessionDto().getExercises().get(0).getReps());
-        System.out.println("value: " + trainingSessionsHelper.getTrainingSessionDto().getExercises().get(0).getValue());
+    public String saveChangesInTrainingSession(@ModelAttribute TrainingSessionDto trainingSessionDto, @RequestParam String action){
+        User loggedUser = userContextService.getLoggedUser();
+        if (action.equals("Save"))
+            trainingSessionService.updateTrainingSession(trainingSessionDto, loggedUser);
+        else {
+            for (int i=0; i<trainingSessionDto.getExercises().size(); i++){
+                if (trainingSessionDto.getExercises().get(i).getName().equals(action))
+                    trainingSessionDto.getExercises().remove(i);
+            }
+            trainingSessionService.updateTrainingSession(trainingSessionDto, loggedUser);
+        }
         return "redirect:/training";
     }
 
@@ -107,5 +121,17 @@ public class TrainingSessionController {
         User loggedUser = userContextService.getLoggedUser();
         trainingSessionService.addExercise(exerciseDto, loggedUser);
         return "redirect:/training/exercises";
+    }
+
+    @PostMapping("/add-log")
+    public String addToLog(@ModelAttribute ExerciseDto exerciseDto){
+        ExerciseLogDto exerciseLogDto = new ExerciseLogDto();
+        System.out.println(exerciseDto);
+        User loggedUser = userContextService.getLoggedUser();
+        Date date = new Date();
+        exerciseLogDto.setExercise(mapper.toExcercise(exerciseDto, loggedUser));
+        exerciseLogDto.setDate(date);
+        trainingSessionService.addExerciseLog(exerciseLogDto, loggedUser);
+        return "redirect:/training";
     }
 }

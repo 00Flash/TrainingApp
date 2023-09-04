@@ -1,69 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <link th:href="@{/css/style.css}" type="text/css" rel="stylesheet">
-        <link rel="stylesheet" th:href="@{/css/fontello.css}" type="text/css" />
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Cabin+Sketch&display=swap" rel="stylesheet">
-        <title>My training</title>
-    </head>
-    <body>
-        <div class="popup" id="popup-1">
-            <div class="overlay"></div>
-            <div class="content">
-                <div class="close-btn" onclick="togglePopup()">&times;</div>
-                <h2>Search for exercise</h2>
-                <div id="search-bar"><input type="text" placeholder="exercise name"><button>Search</button></div>
-                <form th:action="@{/training/session/{name}/add-exercise(name = ${trainingSession.getTrainingSessionDto().getName()})}" method="post">
-                    <div id="exercise-results">
-                        <div class="exercise-in-search" th:each="exercise: ${allExercises}">
-                            <label th:text="${exercise.getName()} + ' '"></label>
-                            <input type="radio" th:name="name" th:value="${exercise.getName()}">
-                        </div>
-                    </div>
-                    <div id="add-dish-bar">
-                        <button onclick="togglePopup()">Add exercise</button>
-                    </div>
-                </form>
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/style.css}" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/fontello.css}" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin+Sketch&display=swap" rel="stylesheet">
+    <title>My training</title>
+</head>
+<body>
+<div class="popup" id="popup-1">
+    <div class="overlay"></div>
+    <div class="content">
+        <div class="close-btn" onclick="togglePopup()">&times;</div>
+        <h2>Search for exercise</h2>
+        <div id="search-bar"><input type="text" placeholder="exercise name"><button>Search</button></div>
+        <form th:action="@{/training/session/{name}/add-exercise(name = ${trainingSessionDto.getName()})}" method="post">
+            <div id="exercise-results">
+                <div class="exercise-in-search" th:each="exercise: ${allExercises}">
+                    <label th:text="${exercise.getName()} + ' '"></label>
+                    <input type="radio" th:name="name" th:value="${exercise.getName()}">
+                </div>
             </div>
-        </div>
+            <div id="add-dish-bar">
+                <button onclick="togglePopup()">Add exercise</button>
+            </div>
+        </form>
+    </div>
+</div>
 
-        <div id="logo">
-            <div class="logo-icons">
+<div id="logo">
+    <div class="logo-icons">
                         <span>
                             <i class="demo-icon icon-tennis"></i>
                             <i class="demo-icon icon-swimming"></i>
                         </span>
-            </div>
-            <span id="app-name">Welcome to your TrainingApp</span>
-            <div class="logo-icons">
+    </div>
+    <span id="app-name">Welcome to your TrainingApp</span>
+    <div class="logo-icons">
                         <span>
                             <i class="demo-icon icon-skiing"></i>
                             <i class="demo-icon icon-soccer"></i>
                         </span>
+    </div>
+</div>
+<div id="training-sessions">
+    <div class="one-training-session">
+        <form th:action="@{/training/save-changes}" method="post" th:object="${trainingSessionDto}">
+            <h2 style="margin: 8px;"><input type="text" placeholder="Name of session" th:field="*{name}" id="training-sessions-name"></h2>
+            <div class="exercise" th:each="exercise, exerciseStat: *{exercises}">
+                <div class="exercise-info" th:text="${exercise.name}" th:field="*{exercises[__${exerciseStat.index}__].name}"></div>
+                <div class="exercise-info"><input class="exercise-edit-input" type="number" th:value="${exercise.reps}" th:field="*{exercises[__${exerciseStat.index}__].reps}" th:text="' ' + ${exercise.unit}" id="exercise-reps"></div>
+                <div class="exercise-info"><input class="exercise-edit-input" type="number" th:value="${exercise.value}" th:field="*{exercises[__${exerciseStat.index}__].value}" th:text="' ' + ${exercise.secondUnit}" id="exercise-value"></div>
+                <input type="hidden" th:field="*{exercises[__${exerciseStat.index}__].unit}" th:value="*{exercises[__${exerciseStat.index}__].unit}">
+                <input type="hidden" th:field="*{exercises[__${exerciseStat.index}__].secondUnit}" th:value="*{exercises[__${exerciseStat.index}__].secondUnit}">
+                <input type="hidden" th:field="*{exercises[__${exerciseStat.index}__].name}" th:value="*{exercises[__${exerciseStat.index}__].name}">
+                <div class="exercise-info"><button style="color: red;" th:value="*{exercises[__${exerciseStat.index}__].name}" th:name="action">Remove</button></div>
             </div>
-        </div>
-        <div id="training-sessions">
-            <div class="one-training-session">
-                <form th:action="@{/training/save-changes}" method="post">
-                    <h2 style="margin: 8px;"><input type="text" placeholder="Name of session" th:value="${trainingSession.getTrainingSessionDto().getName()}" id="training-sessions-name" th:name="newName" th:field="${trainingSession.newName}"></h2>
-                    <div class="exercise" th:each="exercise: ${trainingSession.getTrainingSessionDto().getExercises()}">
-                        <div class="exercise-info" th:text="${exercise.getName()}" id="exercise-name" th:name="name"></div>
-                        <div class="exercise-info"><input class="exercise-edit-input" type="number" th:value="${exercise.getReps()}" id="exercise-reps" th:name="reps" th:text="' ' + ${exercise.getUnit()}"></div>
-                        <div class="exercise-info"><input class="exercise-edit-input" type="number" th:value="${exercise.getValue()}" th:text="' ' + ${exercise.getSecondUnit()}" id="exercise-value" th:name="value"></div>
-                        <div class="exercise-info"><button style="color: red;">Remove</button></div>
-                    </div>
-                    <div style="clear:both; margin-top: 10px;">
-                        <button onclick="togglePopup()" type="button">Add exercise</button>
-                        <button type="submit">Save</button>
-                    </div>
-                </form>
+            <div style="clear:both; margin-top: 10px;">
+                <input type="hidden" th:field="${trainingSessionDto.id}" th:value="${trainingSessionDto.id}">
+                <button onclick="togglePopup()" type="button">Add exercise</button>
+                <button type="submit" value="Save" th:name="action">Save</button>
             </div>
-        </div>
+        </form>
+    </div>
+</div>
 
-        <footer><h4>Made by Dominik Palichleb 2023</h4></footer>
-        <script th:src="@{/js/script.js}"></script>
-    </body>
+<footer><h4>Made by Dominik Palichleb 2023</h4></footer>
+<script th:src="@{/js/script.js}"></script>
+</body>
 </html>

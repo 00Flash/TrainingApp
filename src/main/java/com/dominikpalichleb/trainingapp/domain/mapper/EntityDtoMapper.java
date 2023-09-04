@@ -13,6 +13,10 @@ public class EntityDtoMapper {
         return DietDto.builder()
                 .dishes(diet.getDishes())
                 .date(diet.getDate())
+                .carbs(diet.getCarbs())
+                .fats(diet.getFats())
+                .kcal(diet.getKcal())
+                .carbs(diet.getCarbs())
                 .build();
     }
 
@@ -21,6 +25,10 @@ public class EntityDtoMapper {
                 .user(user)
                 .dishes(dietDto.getDishes())
                 .date(dietDto.getDate())
+                .carbs(dietDto.getCarbs())
+                .fats(dietDto.getFats())
+                .kcal(dietDto.getKcal())
+                .carbs(dietDto.getCarbs())
                 .build();
     }
 
@@ -64,6 +72,7 @@ public class EntityDtoMapper {
     public TrainingSessionDto toTrainingSessionDto(TrainingSession trainingSession){
         return TrainingSessionDto.builder()
                 .exercises(trainingSession.getExercises())
+                .id(trainingSession.getId())
                 .name(trainingSession.getName())
                 .build();
     }
@@ -72,6 +81,7 @@ public class EntityDtoMapper {
         return TrainingSession.builder()
                 .exercises(trainingSessionDto.getExercises())
                 .name(trainingSessionDto.getName())
+                .id(trainingSessionDto.getId())
                 .user(user)
                 .build();
     }

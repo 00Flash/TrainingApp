@@ -68,11 +68,11 @@ public class TrainingSessionService {
         trainingSessionRepository.save(trainingSession);
     }
 
-    public void deleteTrainingSession(String name, User user){
-        trainingSessionRepository.deleteByNameAndUser(name, user);
+    public void deleteTrainingSession(String id, User user){
+        trainingSessionRepository.deleteById(id);
     }
     public void updateTrainingSession(TrainingSessionDto trainingSessionDto, User user){
-        this.deleteTrainingSession(trainingSessionDto.getName(), user);
+        this.deleteTrainingSession(trainingSessionDto.getId(), user);
         trainingSessionRepository.save(mapper.toTrainingSession(trainingSessionDto, user));
     }
 
@@ -102,13 +102,17 @@ public class TrainingSessionService {
         return finalList;
     }
 
-    public List<ExerciseLogDto> getExcerciseLogsByUserAndExcercise(User user, Exercise exercise){
-        Optional<ExerciseLog> optionalList = exerciseLogRepository.findAllByUser(user);
-        List<ExerciseLogDto> finalList = null;
-        List<ExerciseLog> exerciseLogList = optionalList.stream().toList();
-        for(int i = 0; i< exerciseLogList.size(); i++){
-            finalList.add(mapper.toExcerciseLogDto(exerciseLogList.get(i)));
+    public List<ExerciseLogDto> getExcerciseLogsByUser(User user){
+        List<ExerciseLog> list = exerciseLogRepository.findAllByUser(user);
+        List<ExerciseLogDto> listDto = new ArrayList<>();
+        for (int i=0; i<list.size(); i++){
+            listDto.add(mapper.toExcerciseLogDto(list.get(i)));
         }
-        return finalList;
+        return listDto;
+    }
+
+    public void addExerciseLog (ExerciseLogDto exerciseLogDto, User user){
+        ExerciseLog exerciseLog = mapper.toExcerciseLog(exerciseLogDto, user);
+        exerciseLogRepository.save(exerciseLog);
     }
 }

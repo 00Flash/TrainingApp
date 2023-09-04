@@ -17,4 +17,21 @@ import java.util.List;
 public class DietDto {
     private List<Dish> dishes;
     private Date date;
+    private int kcal;
+    private int carbs;
+    private int fats;
+    private int proteins;
+
+    public void countNumbers(){
+        kcal=0;
+        carbs=0;
+        fats=0;
+        proteins=0;
+        for (int i=0; i<dishes.size(); i++){
+            kcal = kcal + dishes.get(i).getKcal();
+            carbs = carbs + dishes.get(i).getCarbon();
+            fats = fats + dishes.get(i).getFat();
+            proteins = proteins + dishes.get(i).getProtein();
+        }
+    }
 }

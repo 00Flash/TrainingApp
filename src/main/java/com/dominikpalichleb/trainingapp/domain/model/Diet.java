@@ -14,5 +14,9 @@ public class Diet {
     private User user;
     private List<Dish> dishes;
     private Date date;
+    private int kcal;
+    private int carbs;
+    private int fats;
+    private int proteins;
 
 }
