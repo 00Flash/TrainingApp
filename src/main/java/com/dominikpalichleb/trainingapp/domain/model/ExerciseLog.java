@@ -16,6 +16,6 @@ public class ExerciseLog {
     private String id;
     private User user;
     private Exercise exercise;
-    private Date date;
+    private String date;
 
 }

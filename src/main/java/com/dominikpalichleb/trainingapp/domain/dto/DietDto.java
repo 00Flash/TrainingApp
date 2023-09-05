@@ -2,6 +2,7 @@ package com.dominikpalichleb.trainingapp.domain.dto;
 
 import com.dominikpalichleb.trainingapp.domain.model.Dish;
 import com.dominikpalichleb.trainingapp.domain.model.User;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,8 +16,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DietDto {
+    @Id
+    private String id;
     private List<Dish> dishes;
-    private Date date;
+    private String date;
     private int kcal;
     private int carbs;
     private int fats;

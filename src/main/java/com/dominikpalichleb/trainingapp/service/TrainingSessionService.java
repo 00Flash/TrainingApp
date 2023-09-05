@@ -39,7 +39,25 @@ public class TrainingSessionService {
     }
 
     public ExerciseDto getExercise(String name, User user){
-        return mapper.toExcerciseDto(exerciseRepository.findByNameAndUser(name, user).get(0));
+        List<Exercise> exercises = exerciseRepository.findAllByUser(user);
+        List<Exercise> exercise = new ArrayList<>();
+        for (int i=0; i<exercises.size(); i++){
+            if (exercises.get(i).getName().contains(name))
+                exercise.add(exercises.get(i));
+        }
+        if (exercise.isEmpty()) return new ExerciseDto();
+        else {
+            List<Exercise> exerciseDto = exerciseRepository.findByNameAndUser(exercise.get(0).getName(), user);
+            List<ExerciseDto> exerciseDtoList = new ArrayList<>();
+            for (int i=0; i<exerciseDto.size(); i++){
+                exerciseDtoList.add(mapper.toExcerciseDto(exerciseDto.get(i)));
+            }
+            if (exerciseDtoList.isEmpty()) return new ExerciseDto();
+            else {
+                return exerciseDtoList.get(0);
+            }
+        }
+
     }
 
     public void addExcerciseLog(ExerciseLogDto exerciseLogDto, User user){
@@ -102,8 +120,8 @@ public class TrainingSessionService {
         return finalList;
     }
 
-    public List<ExerciseLogDto> getExcerciseLogsByUser(User user){
-        List<ExerciseLog> list = exerciseLogRepository.findAllByUser(user);
+    public List<ExerciseLogDto> getExcerciseLogsByUser(User user, ExerciseDto exerciseDto){
+        List<ExerciseLog> list = exerciseLogRepository.findAllByUserAndExercise(user, mapper.toExcercise(exerciseDto, user));
         List<ExerciseLogDto> listDto = new ArrayList<>();
         for (int i=0; i<list.size(); i++){
             listDto.add(mapper.toExcerciseLogDto(list.get(i)));

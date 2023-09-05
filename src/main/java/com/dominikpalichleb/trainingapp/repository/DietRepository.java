@@ -11,6 +11,6 @@ import java.util.List;
 
 @Repository
 public interface DietRepository extends MongoRepository<Diet, Long> {
-    List<Diet> findAllByUserId(Long id);
-    Diet findByUserIdAndDate(User user, Date date);
+    List<Diet> findAllByUser(User user);
+    List<Diet> findByUserAndDate(User user, String date);
 }

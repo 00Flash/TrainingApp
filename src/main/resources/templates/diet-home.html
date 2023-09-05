@@ -56,13 +56,16 @@
                 </span>
             </div>
         </div>
+        <div class="training-menu">
+            <form th:action="@{/diet/new-day}" method="post"><button type="submit" class="plus" style="float:none">New day</button></form>
+        </div>
 
-        <div class="diet-day">
-            <div id="date">Today</div>
-            <div class="diet-number" style="background-color: blue">Calories: 0kcal</div>
-            <div class="diet-number" style="background-color: green">Carbs: 0g</div>
-            <div class="diet-number" style="background-color: yellow">Fats: 0g</div>
-            <div class="diet-number" style="background-color: red">Proteins: 0g</div>
+        <div class="diet-day" th:each="dietDay: ${dietList}">
+            <div id="date" th:text="${dietDay.getDate()}"></div>
+            <div class="diet-number" style="background-color: blue">Calories: <span th:text="${dietDay.getKcal()}"></span>kcal</div>
+            <div class="diet-number" style="background-color: green">Carbs: <span th:text="${dietDay.getCarbs()}"></span>g</div>
+            <div class="diet-number" style="background-color: yellow">Fats: <span th:text="${dietDay.getFats()}"></span>g</div>
+            <div class="diet-number" style="background-color: red">Proteins: <span th:text="${dietDay.getProteins()}"></span>g</div>
             <div class="dish">
                 <div class="dish-info">French fries</div>
                 <div class="dish-info">500g</div>
@@ -74,8 +77,7 @@
                 <div class="dish-remove"><input type="button" value="Remove"></div>
             </div>
             <div id="diet-bar">
-                <div class="dish-button"><button onclick="togglePopup()">Add dish</button></div>
-                <div class="dish-button"><input type="button" value="Save"></div>
+                <div class="dish-button"><button onclick="togglePopup()" class="add-dish-popup-btn">Add dish</button></div>
             </div>
         </div>
 

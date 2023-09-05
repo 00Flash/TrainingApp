@@ -1,0 +1,9 @@
+<div class="close-btn" onclick="togglePopup()">&times;</div>
+<h2 th:text="${exercise.name}"></h2>
+<div id="exercise-results">
+  <div class="exercise-log" th:each="log: ${logs}">
+    <div class="log-number" th:text="${log.date}"></div>
+    <div class="log-number" ><span th:text="${log.exercise.reps}"></span> <span th:text="${log.exercise.unit}"></span></div>
+    <div class="log-number" ><span th:text="${log.exercise.value}"></span> <span th:text="${log.exercise.secondUnit}"></span></div>
+  </div>
+</div>

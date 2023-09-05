@@ -18,5 +18,5 @@ public class ExerciseLogDto {
     @Id
     private String id;
     private Exercise exercise;
-    private Date date;
+    private String date;
 }

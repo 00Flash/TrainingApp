@@ -11,9 +11,11 @@ import java.util.List;
 @Builder
 @Data
 public class Diet {
+    @Id
+    private String id;
     private User user;
     private List<Dish> dishes;
-    private Date date;
+    private String date;
     private int kcal;
     private int carbs;
     private int fats;

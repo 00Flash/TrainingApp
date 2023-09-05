@@ -49,13 +49,20 @@
             <a th:href="@{/training/exercise/form}"><div class="plus" style="float: none;">New exercise</div></a>
         </div>
         <div class="one-exercise" th:each="exercise: ${exercisesList}">
-            <div class="exercise-content" th:text="${exercise.getName()}">Bench press</div>
+            <div class="exercise-content" th:text="${exercise.getName()}" th:value="${exercise.getName()}"></div>
             <div class="exercise-content" >last training:</div>
             <div class="exercise-content"><span th:text="${exercise.getReps()}"></span> <span th:text="${exercise.getUnit()}"></span></div>
             <div class="exercise-content"><span th:text="${exercise.getValue()}"></span> <span th:text="${exercise.getSecondUnit()}"></span></div>
-            <div class="exercise-content"><button onclick="togglePopup()">See history</button></div>
+            <div class="exercise-content"><button onclick="togglePopup()" class="history-button" th:name="${exercise.name}" th:value="${exercise.name}">See history</button></div>
         </div>
         <footer><h4>Made by Dominik Palichleb 2023</h4></footer>
+        <script th:src="@{http://code.jquery.com/jquery-latest.min.js}" type="text/javascript"></script>
         <script th:src="@{/js/script.js}"></script>
+        <script>
+            $(".history-button").on("click", function(){
+                $(".content").load("/training/exercise-log/" + this.value);
+                console.log(this.value);
+            });
+        </script>
     </body>
 </html>

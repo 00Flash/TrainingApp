@@ -15,34 +15,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/diet")
 public class DietController {
     private final UserContextService userContextService;
-    private final DietRepository dietRepository;
     private final DietService dietService;
-    private final DishRepository dishRepository;
-    private final EntityDtoMapper mapper;
-
     @GetMapping
     public String showAllDietDays(Model model) {
         User loggedUser = userContextService.getLoggedUser();
 
-        List<Diet> dietList = dietRepository.findAllByUserId(loggedUser.getId());
-        List<Dish> dishList = dishRepository.findAll();
-        List<DietDto> dietDtoList = new ArrayList<>();
-        List<DishDto> dishDtoList = new ArrayList<>();
-        for (int i=0; i<dietList.size(); i++){
-            dietDtoList.add(mapper.toDietDto(dietList.get(i)));
-        }
-        for (int i=0; i<dishList.size(); i++){
-            dishDtoList.add(mapper.toDishDto(dishList.get(i)));
-        }
+        List<DietDto> dietList = dietService.getAllDiets(loggedUser);
+        List<DishDto> dishList = dietService.getAllDishes();
 
         DishDto dish = new DishDto();
         dish.setName("");
@@ -51,12 +42,9 @@ public class DietController {
         dish.setCarbon(0);
         dish.setProtein(0);
         dish.setFat(0);
-        Date date = new Date();
-        Diet diet = dietService.getDietByDate(loggedUser, date);
         model.addAttribute("dish", dish);
-        model.addAttribute("dietDay", diet);
-        model.addAttribute("dishList", dishDtoList);
-        model.addAttribute("dietList", dietDtoList);
+        model.addAttribute("dishList", dishList);
+        model.addAttribute("dietList", dietList);
         return "diet-home";
     }
     @PostMapping
@@ -75,13 +63,22 @@ public class DietController {
     }
     @GetMapping("/search-dish/{name}")
     public String searchDish(@PathVariable String name, Model model){
-        List<Dish> allDishes = dishRepository.findAll();
-        List<Dish> dishList = new ArrayList<>();
+        List<DishDto> allDishes = dietService.getAllDishes();
+        List<DishDto> dishList = new ArrayList<>();
         for (int i=0; i<allDishes.size(); i++){
             if (allDishes.get(i).getName().contains(name))
                 dishList.add(allDishes.get(i));
         }
         model.addAttribute("dishList", dishList);
         return "search-dish";
+    }
+    @PostMapping("/new-day")
+    public String createNewDietDay(){
+        User loggedUser = userContextService.getLoggedUser();
+        DietDto dietDto = new DietDto();
+        LocalDateTime date = LocalDateTime.now();
+        dietDto.setDate(DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH).format(date));
+        dietService.addDiet(dietDto, loggedUser);
+        return "redirect:/diet";
     }
 }

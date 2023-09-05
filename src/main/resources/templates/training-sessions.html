@@ -32,20 +32,20 @@
         <div id="training-sessions" th:each="trainingSession: ${trainingSessionList}">
             <div class="one-training-session">
                 <h2 style="margin: 8px;" th:text="${trainingSession.getName()}"></h2>
+
                 <div class="exercise" th:each="exercise: ${trainingSession.getExercises()}">
                     <div class="exercise-info" th:text="${exercise.getName()}"></div>
                     <div class="exercise-info"><span th:text="${exercise.getReps()}"></span> <span th:text="${exercise.getUnit()}"></span></div>
                     <div class="exercise-info"><span th:text="${exercise.getValue()}"></span> <span th:text="${exercise.getSecondUnit()}"></span></div>
                     <div class="exercise-info">
                         <form th:action="@{/training/add-log}" method="post" th:object="${toExerciseLog}">
-                            <input type="hidden" th:field="*{name}" th:value="${exercise.getName()}">
-                            <input type="hidden" th:field="*{unit}" th:value="${exercise.getUnit()}">
-                            <input type="hidden" th:field="*{secondUnit}" th:value="${exercise.getSecondUnit()}">
-                            <input type="hidden" th:field="*{value}" th:value="${exercise.getValue()}">
-                            <input type="hidden" th:field="*{reps}" th:value="${exercise.getReps()}">
+                            <input type="hidden" th:value="${exercise.getName()}" th:attr="name='name'">
+                            <input type="hidden" th:value="${exercise.getReps()}" th:attr="name='reps'">
+                            <input type="hidden" th:value="${exercise.getValue()}" th:attr="name='value'">
+                            <input type="hidden" th:value="${exercise.getUnit()}" th:attr="name='unit'">
+                            <input type="hidden" th:value="${exercise.getSecondUnit()}" th:attr="name='secondUnit'">
                             <button type="submit">Add to log</button>
                         </form>
-
                     </div>
                 </div>
                 <div style="width: 80px; margin-left: auto; margin-right: auto;">

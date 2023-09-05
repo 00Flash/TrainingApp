@@ -4,7 +4,6 @@ import com.dominikpalichleb.trainingapp.domain.dto.ExerciseDto;
 import com.dominikpalichleb.trainingapp.domain.dto.ExerciseLogDto;
 import com.dominikpalichleb.trainingapp.domain.dto.TrainingSessionDto;
 import com.dominikpalichleb.trainingapp.domain.mapper.EntityDtoMapper;
-import com.dominikpalichleb.trainingapp.domain.model.TrainingSessionsHelper;
 import com.dominikpalichleb.trainingapp.domain.model.User;
 import com.dominikpalichleb.trainingapp.service.TrainingSessionService;
 import com.dominikpalichleb.trainingapp.service.UserContextService;
@@ -13,8 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 @RequiredArgsConstructor
@@ -50,8 +53,6 @@ public class TrainingSessionController {
     public String showAllExercises(Model model){
         User loggedUser = userContextService.getLoggedUser();
         List<ExerciseDto> excerciseList = trainingSessionService.getExcercisesByUser(loggedUser);
-        List<ExerciseLogDto> exerciseLogList = trainingSessionService.getExcerciseLogsByUser(loggedUser);
-        model.addAttribute("exerciseLogList", exerciseLogList);
         model.addAttribute("exercisesList", excerciseList);
         return "exercises";
     }
@@ -119,6 +120,9 @@ public class TrainingSessionController {
     @PostMapping("/exercise/form")
     public String processExerciseForm(@ModelAttribute ExerciseDto exerciseDto){
         User loggedUser = userContextService.getLoggedUser();
+        String s = exerciseDto.getName();
+        s = s.replaceAll("\\s", "");
+        exerciseDto.setName(s);
         trainingSessionService.addExercise(exerciseDto, loggedUser);
         return "redirect:/training/exercises";
     }
@@ -126,12 +130,25 @@ public class TrainingSessionController {
     @PostMapping("/add-log")
     public String addToLog(@ModelAttribute ExerciseDto exerciseDto){
         ExerciseLogDto exerciseLogDto = new ExerciseLogDto();
-        System.out.println(exerciseDto);
         User loggedUser = userContextService.getLoggedUser();
-        Date date = new Date();
+        LocalDateTime today = LocalDateTime.now();
+        String date = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ENGLISH).format(today);
         exerciseLogDto.setExercise(mapper.toExcercise(exerciseDto, loggedUser));
         exerciseLogDto.setDate(date);
         trainingSessionService.addExerciseLog(exerciseLogDto, loggedUser);
         return "redirect:/training";
+    }
+
+    @GetMapping("/exercise-log/{name}")
+    public String showExerciseLog(@PathVariable String name, Model model){
+        System.out.println("jestem");
+        System.out.println(name);
+        User loggedUser = userContextService.getLoggedUser();
+        ExerciseDto exerciseDto = trainingSessionService.getExercise(name, loggedUser);
+        List<ExerciseLogDto> list = trainingSessionService.getExcerciseLogsByUser(loggedUser, exerciseDto);
+        model.addAttribute("exercise", exerciseDto);
+        model.addAttribute("logs", list);
+
+        return "exercise-log";
     }
 }

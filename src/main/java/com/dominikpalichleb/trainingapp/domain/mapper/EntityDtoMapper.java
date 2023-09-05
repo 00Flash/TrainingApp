@@ -17,6 +17,7 @@ public class EntityDtoMapper {
                 .fats(diet.getFats())
                 .kcal(diet.getKcal())
                 .carbs(diet.getCarbs())
+                .id(diet.getId())
                 .build();
     }
 
@@ -29,6 +30,7 @@ public class EntityDtoMapper {
                 .fats(dietDto.getFats())
                 .kcal(dietDto.getKcal())
                 .carbs(dietDto.getCarbs())
+                .id(dietDto.getId())
                 .build();
     }
 
@@ -43,7 +45,7 @@ public class EntityDtoMapper {
     }
 
     public Exercise toExcercise(ExerciseDto exerciseDto, User user){
-        Exercise exercise = Exercise.builder()
+        return Exercise.builder()
                 .user(user)
                 .unit(exerciseDto.getUnit())
                 .secondUnit(exerciseDto.getSecondUnit())
@@ -51,7 +53,6 @@ public class EntityDtoMapper {
                 .name(exerciseDto.getName())
                 .reps(exerciseDto.getReps())
                 .build();
-        return exercise;
     }
 
     public ExerciseLogDto toExcerciseLogDto(ExerciseLog exerciseLog){
