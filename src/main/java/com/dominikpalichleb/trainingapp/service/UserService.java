@@ -20,7 +20,10 @@ public class UserService implements UserDetailsService {
                         new UsernameNotFoundException(String.format("Username %s not found", username)));
     }
 
-    public User save(User user) {
-        return userRepository.save(user);
+    public User save(User user) throws Exception {
+        if (userRepository.findByUsername(user.getUsername()).isPresent())
+            throw new Exception("User already exist");
+        else
+            return userRepository.save(user);
     }
 }

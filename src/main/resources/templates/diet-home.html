@@ -66,9 +66,9 @@
             <div class="diet-number" style="background-color: green">Carbs: <span th:text="${dietDay.getCarbs()}"></span>g</div>
             <div class="diet-number" style="background-color: yellow">Fats: <span th:text="${dietDay.getFats()}"></span>g</div>
             <div class="diet-number" style="background-color: red">Proteins: <span th:text="${dietDay.getProteins()}"></span>g</div>
-            <div class="dish">
-                <div class="dish-info">French fries</div>
-                <div class="dish-info">500g</div>
+            <div class="dish" th:each="oneDish: ${dietDay.getDishes()}">
+                <div class="dish-info" th:text="${oneDish.name}">French fries</div>
+                <div class="dish-info" th:text="${oneDish.amount}">500g</div>
                 <div class="dish-remove"><input type="button" value="Remove"></div>
             </div>
             <div class="dish">

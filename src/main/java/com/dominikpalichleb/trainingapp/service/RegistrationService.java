@@ -12,12 +12,14 @@ public class RegistrationService {
     private final UserService userService;
     private final BCryptPasswordEncoder encoder;
 
-    public void register(UserDto userDto) {
+    public void register(UserDto userDto) throws Exception {
         User user = new User();
 
         user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
         user.setPassword(encoder.encode(userDto.getPassword()));
+
+
 
         userService.save(user);
     }
