@@ -21,7 +21,8 @@
                         <div id="dish-results">
 
                         </div>
-                        <div class="add-dish-bar"><input type="number" min="0" step="50" style="width: 50px;" th:name="seach-dish-amount">g <button onclick="togglePopup()" type="submit">Add dish</button></div>
+                        <div class="add-dish-bar"><input type="number" min="0" step="50" style="width: 50px;" th:name="seach-dish-amount">g <button type="submit">Add dish</button></div>
+                        <input type="hidden" id="search-dish-date" th:name="search-dish-date" th:value="starting-value">
                     </form>
 
 
@@ -34,7 +35,8 @@
                         <div class="custom-dish-number"><label>Proteins in 100g <input type="number" style="width: 30px;" th:field="*{protein}" id="dish-protein" th:name="protein"></label></div>
                         <div class="custom-dish-number"><label>Carbs in 100g <input type="number" style="width: 30px;" th:field="*{carbon}" id="dish-carbon" th:name="carbon"></label></div>
                         <div class="custom-dish-number"><label>Fats in 100g <input type="number" style="width: 30px;" th:field="*{fat}" id="dish-fat" th:name="fat"></label></div>
-                        <div class="add-dish-bar" style="margin-top: 185px;"><input type="number" min="0" step="50" style="width: 50px;" th:field="*{amount}" id="dish-amount" th:name="amount">g <button type="submit" onclick="togglePopup()">Add dish</button></div>
+                        <div class="add-dish-bar" style="margin-top: 185px;"><input type="number" min="0" step="50" style="width: 50px;" th:field="*{amount}" id="dish-amount" th:name="amount">g <button type="submit">Add dish</button></div>
+                        <input type="hidden" id="custom-dish-date"  th:name="custom-dish-date" th:value="starting-value">
                     </form>
                 </div>
 
@@ -67,17 +69,11 @@
             <div class="diet-number" style="background-color: yellow">Fats: <span th:text="${dietDay.getFats()}"></span>g</div>
             <div class="diet-number" style="background-color: red">Proteins: <span th:text="${dietDay.getProteins()}"></span>g</div>
             <div class="dish" th:each="oneDish: ${dietDay.getDishes()}">
-                <div class="dish-info" th:text="${oneDish.name}">French fries</div>
-                <div class="dish-info" th:text="${oneDish.amount}">500g</div>
-                <div class="dish-remove"><input type="button" value="Remove"></div>
-            </div>
-            <div class="dish">
-                <div class="dish-info">Spaghetti</div>
-                <div class="dish-info">300g</div>
-                <div class="dish-remove"><input type="button" value="Remove"></div>
+                <div class="dish-info" th:text="${oneDish.name}"></div>
+                <div class="dish-info"><span th:text="${oneDish.amount}"></span><span>g</span></div>
             </div>
             <div id="diet-bar">
-                <div class="dish-button"><button onclick="togglePopup()" class="add-dish-popup-btn">Add dish</button></div>
+                <div class="dish-button"><button onclick="togglePopup(this.value)" class="add-dish-popup-btn" th:value="${dietDay.date}">Add dish</button></div>
             </div>
         </div>
 

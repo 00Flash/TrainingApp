@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,10 +32,15 @@ public class DietDto {
         fats=0;
         proteins=0;
         for (int i=0; i<dishes.size(); i++){
-            kcal = kcal + dishes.get(i).getKcal();
-            carbs = carbs + dishes.get(i).getCarbon();
-            fats = fats + dishes.get(i).getFat();
-            proteins = proteins + dishes.get(i).getProtein();
+            kcal = kcal + (dishes.get(i).getKcal() * dishes.get(i).getAmount() / 100);
+            carbs = carbs + (dishes.get(i).getCarbon() * dishes.get(i).getAmount() / 100);
+            fats = fats + (dishes.get(i).getFat() * dishes.get(i).getAmount() / 100);
+            proteins = proteins + (dishes.get(i).getProtein() * dishes.get(i).getAmount() / 100);
         }
+    }
+    public void addDish(Dish dish){
+        if (dishes == null)
+            dishes = new ArrayList<>();
+        dishes.add(dish);
     }
 }

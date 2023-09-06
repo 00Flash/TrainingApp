@@ -28,6 +28,7 @@ import java.util.Locale;
 public class DietController {
     private final UserContextService userContextService;
     private final DietService dietService;
+    private final EntityDtoMapper mapper;
     @GetMapping
     public String showAllDietDays(Model model) {
         User loggedUser = userContextService.getLoggedUser();
@@ -48,17 +49,33 @@ public class DietController {
         return "diet-home";
     }
     @PostMapping
-    public String addDishToDietDay(@RequestParam(value = "seach-dish-name") String name, @RequestParam(value = "seach-dish-amount") int amount) {
-        System.out.println("name " + name);
-        System.out.println("jestem tu");
-        System.out.println("amount " + amount);
-        System.out.println("gg");
+    public String addDishToDietDay(@RequestParam(value = "seach-dish-name") String name, @RequestParam(value = "seach-dish-amount") int amount, @RequestParam(value = "search-dish-date") String date) {
+        User loggedUser = userContextService.getLoggedUser();
+        DietDto diet = dietService.getDietByDate(loggedUser, date);
+        System.out.println(diet);
+        DishDto dish = dietService.getDishByName(name);
+        dish.setAmount(amount);
+        diet.addDish(mapper.toDish(dish));
+        diet.countNumbers();
+        dietService.updateDiet(diet, loggedUser);
+
+        return "redirect:/diet";
+    }
+
+    @PostMapping("/removeDish")
+    public String removeDishFromDiet(@ModelAttribute DishDto dish, @RequestParam(value = "removal-dish-name") String date){
+        System.out.println(dish);
+        System.out.println(date);
         return "redirect:/diet";
     }
 
     @PostMapping("/custom")
-    public String addCustomDishToDietDay(@ModelAttribute DishDto dish) {
-        dietService.addDish(dish);
+    public String addCustomDishToDietDay(@ModelAttribute DishDto dish, @RequestParam(value = "custom-dish-date") String date) {
+        User loggedUser = userContextService.getLoggedUser();
+        DietDto diet = dietService.getDietByDate(loggedUser, date);
+        diet.addDish(mapper.toDish(dish));
+        diet.countNumbers();
+        dietService.updateDiet(diet, loggedUser);
         return "redirect:/diet";
     }
     @GetMapping("/search-dish/{name}")

@@ -35,9 +35,9 @@ public class DietService {
         dietRepository.save(diet);
     }
 
-    public Diet getDietByDate(User user, String date){
+    public DietDto getDietByDate(User user, String date){
         List<Diet> diet = dietRepository.findByUserAndDate(user, date);
-        return diet.get(0);
+        return mapper.toDietDto(diet.get(0));
     }
 
     public List<DietDto> getAllDiets(User user){
@@ -61,5 +61,19 @@ public class DietService {
             dishDtoList.add(mapper.toDishDto(dishList.get(i)));
         }
         return dishDtoList;
+    }
+
+    public DishDto getDishByName(String name){
+        List<Dish> dishList = dishRepository.findByName(name);
+        List<DishDto> dishDtoList = new ArrayList<>();
+        for (int i=0; i<dishList.size(); i++){
+            dishDtoList.add(mapper.toDishDto(dishList.get(i)));
+        }
+        return dishDtoList.get(0);
+    }
+
+    public void updateDiet(DietDto diet, User user) {
+        dietRepository.deleteById(diet.getId());
+        dietRepository.save(mapper.toDiet(diet, user));
     }
 }
