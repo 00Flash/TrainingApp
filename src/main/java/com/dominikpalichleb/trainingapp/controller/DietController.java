@@ -98,4 +98,9 @@ public class DietController {
         dietService.addDiet(dietDto, loggedUser);
         return "redirect:/diet";
     }
+
+    @GetMapping("/calorie")
+    public String showCalorieCalculator(){
+        return "calorie";
+    }
 }

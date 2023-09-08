@@ -59,7 +59,8 @@
             </div>
         </div>
         <div class="training-menu">
-            <form th:action="@{/diet/new-day}" method="post"><button type="submit" class="plus" style="float:none">New day</button></form>
+            <form th:action="@{/diet/new-day}" method="post"><button type="submit" class="plus" style="margin-right: 50px;">New day</button></form>
+            <a th:href="@{/diet/calorie}"><div class="plus">Calorie calculator</div></a>
         </div>
 
         <div class="diet-day" th:each="dietDay: ${dietList}">

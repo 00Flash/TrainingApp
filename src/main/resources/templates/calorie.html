@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/style.css}" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/fontello.css}" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin+Sketch&display=swap" rel="stylesheet">
+    <title>Calorie calculator</title>
+  </head>
+  <body>
+  <div id="logo">
+    <div class="logo-icons">
+                  <span>
+                      <i class="demo-icon icon-tennis"></i>
+                      <i class="demo-icon icon-swimming"></i>
+                  </span>
+    </div>
+    <span id="app-name">Welcome to your TrainingApp</span>
+    <div class="logo-icons">
+                  <span>
+                      <i class="demo-icon icon-skiing"></i>
+                      <i class="demo-icon icon-soccer"></i>
+                  </span>
+    </div>
+  </div>
+
+      <div style="width: 600px; text-align: center; margin-left: auto; margin-right: auto; margin-top: 100px;">
+          <div class="new-exercise-field"><label><input min="0" type="number" id="weight" placeholder="Weight"></label></div>
+          <div class="new-exercise-field"><label><input min="0" type="number" id="height" placeholder="height"></label></div>
+          <div class="new-exercise-field"><label><input min="0" type="number" id="age" placeholder="age"></label></div>
+          <div class="new-exercise-field">
+              <label style="background-color: #EBEBE2">Gender
+                  <select id="gender">
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                  </select>
+              </label>
+          </div>
+          <div class="new-exercise-field">
+              <label style="background-color: #EBEBE2">Activity
+                  <select id="activity">
+                      <option value="light">Light</option>
+                      <option value="moderate">Moderate</option>
+                      <option value="active">Active</option>
+                  </select>
+              </label>
+          </div>
+          <div class="new-exercise-field"><label><input type="button" onclick="countCalories()" value="Count"></label></div>
+          <div class="new-exercise-field" style="background-color: #EBEBE2"><span>Resting energy expenditure: </span><span id="swe"></span></div>
+          <div class="new-exercise-field" style="background-color: #EBEBE2"><span>Total energy expenditure: </span><span id="cwe"></span></div>
+      </div>
+
+    <footer><h4>Made by Dominik Palichleb 2023</h4></footer>
+
+  <script th:src="@{/js/script.js}"></script>
+  </body>
+</html>
